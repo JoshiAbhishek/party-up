@@ -9,9 +9,11 @@
         <button id="endButton" onclick="createRouteEnd()">Add End</button>
         {{$group_name}}
         {{$group_code}}
-        @foreach ($usernames as $username)
-            {{$username[0]}}
-            {{$username[1]}}
+        @foreach ($cars as $car)
+            {{$car[0]}}
+            {{$car[1]}}
+            {{$car[2]}}
+            {{$car[3]}}
         @endforeach
     </div>
 
