@@ -13,7 +13,9 @@
 
 Route::get('/', 'HomeController@getLogin');
 
-Route::get('/Groups', 'GroupsController@getGroups');
+Route::get('/Groups', 'GroupsController@getUserGroups');
+
+Route::post('/Groups', 'GroupsController@createGroup');
 
 Route::get('/Group/{group_id}/', 'MapController@getMap');
 
