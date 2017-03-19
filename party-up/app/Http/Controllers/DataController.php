@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Collection;
 class DataController extends APIController
 {
     public function updateData() {
+		this::checkLoginStatus();
+
         $vehicles = $this->fetchVehicles();
 		$users = $this->fetchUsers();
 
@@ -57,6 +59,7 @@ class DataController extends APIController
     }
 
     public function getData() {
+		this::checkLoginStatus();
 
     }
 }

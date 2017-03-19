@@ -8,6 +8,8 @@ class HomeController extends Controller
 {
 
 	public function getLogin() {
+		this::checkLoginStatus(); 
+		
 		$this->blade_data['nothing'] = 'nothing';
 		return view('pages.home', $this->blade_data);
     }

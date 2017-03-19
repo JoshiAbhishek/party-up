@@ -8,6 +8,8 @@ use App\Models\groups;
 class MapController extends Controller
 {
 	public function getMap($group_id) {
+		this::checkLoginStatus();
+		
 		$this->blade_data['group_id'] = $group_id;
         $group = groups::find($group_id);
         $this->blade_data['group_name'] = $group->group_name;

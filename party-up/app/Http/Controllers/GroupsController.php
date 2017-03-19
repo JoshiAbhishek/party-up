@@ -11,6 +11,8 @@ use Redirect;
 class GroupsController extends Controller
 {
 
+    
+
 	/*
 	public function getGroups() {
 		// For Testing Purposes
@@ -22,6 +24,8 @@ class GroupsController extends Controller
 
     // Get id of currently logged in user
     public function getUserGroups() {
+        this::checkLoginStatus();
+        
         $id = 1;
         $groups = memberships::
                     join('groups','memberships.group_id','=','groups.id') ->
@@ -36,6 +40,8 @@ class GroupsController extends Controller
     }
 
 	public function getGroupUsers($group_id) {
+        this::checkLoginStatus();
+
 		$this->blade_data['group_id'] = $group_id;
         $group = groups::find($group_id);
         $this->blade_data['group_name'] = $group->group_name;
@@ -53,6 +59,8 @@ class GroupsController extends Controller
 	}
 
     public function createGroup() {
+        this::checkLoginStatus();
+
         $id = 1;
         $group = new groups;
         $group->group_name = Input::get('name');
@@ -67,12 +75,16 @@ class GroupsController extends Controller
     }
 
     public function updateDestination($id,$loc_id) {
+        this::checkLoginStatus();
+
         $group = groups::find($id);
         $group->destination_id = $loc_id;
         $group.save();
     }
 
     public function joinGroup() {
+        this::checkLoginStatus(); 
+
         $user_id = 1;
         $member = new memberships;
         $member->user_id = $user_id;
@@ -91,6 +103,7 @@ class GroupsController extends Controller
     }
 
     public function leaveGroup() {
+        this::checkLoginStatus();
 
     }
 }
