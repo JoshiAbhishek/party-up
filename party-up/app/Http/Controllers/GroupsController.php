@@ -28,17 +28,12 @@ class GroupsController extends APIController
 
     // Get id of currently logged in user
     public function getUserGroups(Request $request) {
-<<<<<<< HEAD
         parent::checkLoginStatus($request);
-        
-        $id = 1;
-=======
         $user_id = $this->fetchCurrentUser()->_id;
         $id = User::select('id','user_id')->where('user_id',$user_id)->first()->id;
 
         $request->session()->put('user_id', $id);
 
->>>>>>> interface
         $groups = memberships::
                     join('groups','memberships.group_id','=','groups.id') ->
                     where('user_id',$id) ->
