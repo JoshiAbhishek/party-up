@@ -4,15 +4,28 @@
 @section('content')
 	<div>
         <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+		<button id="notificationsButton" onclick="toggleNotifications()">Notifications</button>
         <button id="locationButton">Add Location</button>
         <button id="startButton" onclick="createRouteStart()">Add Start</button>
         <button id="endButton" onclick="createRouteEnd()">Add End</button>
+		<button id="menuButton" onclick="toggleMenu()">More</button>
         {{$group_name}}
         {{$group_code}}
     </div>
 
+	<div id="notifications">
+		<button class="backButton" onclick="toggleNotifications()">Back</button>
+		<div id="messages">
+		</div>
+	</div>
     <div id="map"></div>
+	<div id="menu">
+		<button class="backButton" onclick="toggleMenu()">Back</button>
+		<button class="groupsButton" onclick="location.href='/Groups'">Groups</button>
+	</div>
     <script>
+		$("#notifications").toggle();
+		$("#menu").toggle();
 		var myVar = setInterval(myTimer, 10000);
 
         function myTimer() {
@@ -240,6 +253,16 @@
                 infowindow.open(map, marker);
             });
         }
+
+		function toggleNotifications() {
+			$("#notifications").toggle();	
+			$("#notifications").css('background-color', 'rgba(84, 84, 84, .8)');
+		}
+
+		function toggleMenu() {
+			$("#menu").toggle();
+			$("#menu").css('background-color', 'rgba(84, 84, 84, .8)');
+		}
     </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYVN9D5r-6ZZ90YqB-gFg0_aPuwveXzus&libraries=places&callback=initAutocomplete"
