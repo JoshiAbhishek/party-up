@@ -25,6 +25,13 @@ class GroupsController extends Controller
         $user->save();
     }
 
+	public function stopBroadcast() {
+		$id = 1;
+		$user = User::find($id);
+		$user->broadcasting = 0;
+		$user->save();
+	}
+
     // Get id of currently logged in user
     public function getUserGroups() {
         $id = 1;

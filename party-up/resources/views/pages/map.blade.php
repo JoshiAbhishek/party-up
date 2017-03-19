@@ -13,12 +13,6 @@
         {{$group_name}}
         {{$group_code}}
         {{$group_dest}}
-        @foreach ($cars as $car)
-            {{$car[0]}}
-            {{$car[1]}}
-            {{$car[2]}}
-            {{$car[3]}}
-        @endforeach
     </div>
 
 	<div id="notifications">
@@ -34,23 +28,47 @@
     <script>
 		$("#notifications").toggle();
 		$("#menu").toggle();
+		
+		$(document).ready(function() {
+			$.ajax({url: "/stopBroadcast"});
+		});
+
+		$(window).on('beforeunload', function(){
+			$.ajax({url: "/stopBroadcast"});
+		});
+
+		var toggled = false;
 
         broadcast = function() {
             $.ajax({
               url: "/setBroadcast",
             }); 
+
+			if (!toggled) {
+				toggled = true;
+				$("#broadcastButton").css('color', 'red !important');
+				$("#broadcastButton").css('background-color', '#fc5b5b');
+				$("#broadcastButton").css('border-color', '#fc5b5b');
+			} else {
+				toggled = false;
+				$("#broadcastButton").css('color', 'white !important');
+				$("#broadcastButton").css('background-color', 'rgba(0,0,0,0)'); 
+				$("#broadcastButton").css('border-color', 'white');
+			}
+			
         };
 
-		var myVar = setInterval(myTimer, 10000);
+		var myVar = setInterval(myTimer, 5000);
 
         function myTimer() {
-            console.log("TIMER");
 
             addWaypoints();
             addOtherDrivers();
             addCurrentDriver();
 
             updateCenter();
+			
+		    $.ajax({url: "/getVehicles"});
         }
 
         var map; //Main map
@@ -69,7 +87,6 @@
 
             map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: 40, lng: -100 },
-                zoom: 8,
                 mapTypeId: 'roadmap'
             });
 
@@ -119,6 +136,14 @@
                 var bounds = new google.maps.LatLngBounds();
                 bounds.extend(currentDriver);
                 map.fitBounds(bounds);
+
+				zoomChangeBoundsListener = 
+   				google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
+        			if (this.getZoom()){
+            			this.setZoom(16);
+       				 }
+				});
+				setTimeout(function(){google.maps.event.removeListener(zoomChangeBoundsListener)}, 2000);
             }   
         }
 
@@ -220,7 +245,7 @@
             for (i = 0; i < otherDrivers.length; i++) {
                 var way = {lat: otherDrivers[i].lat, lng: otherDrivers[i].lng};
 
-                addDriverMarkers(way,  otherDrivers[i].name, '<p>Driver Content</p>', 'other');
+                addDriverMarkers(way,  otherDrivers[i].name, '<p>Hello!</p>', 'other');
             }
         }
 
@@ -236,7 +261,7 @@
         }
 
         function addCurrentDriverMarker() {
-            addDriverMarkers(currentDriver, 'Driver Name', '<p>Driver Content</p>', 'driver');
+            addDriverMarkers(currentDriver, 'Driver Name', '<p>Hello!</p>', 'driver');
 
         }
 

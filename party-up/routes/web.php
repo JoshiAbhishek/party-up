@@ -35,3 +35,4 @@ Route::get('/access', function(){
 
 Route::get('/setBroadcast', 'GroupsController@setBroadcast');
 
+Route::get('/stopBroadcast', 'GroupsController@stopBroadcast');
