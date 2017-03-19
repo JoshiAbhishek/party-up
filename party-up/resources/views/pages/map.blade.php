@@ -199,7 +199,7 @@
             @endforeach
             //Driver {lat: , lng: , name: }
 
-            otherDrivers = drivers;
+            //otherDrivers = drivers;
 
             addOtherDriverMarkers();
         }
@@ -210,9 +210,9 @@
 
             var i;
             for (i = 0; i < otherDrivers.length; i++) {
-                var way = otherDrivers[i];
+                var way = {lat: otherDrivers[i].lat, lng: otherDrivers[i].long};
 
-                addDriverMarkers(way, 'Other Driver Name', '<p>Driver Content</p>', 'other');
+                addDriverMarkers(way,  otherDrivers[i].name, '<p>Driver Content</p>', 'other');
             }
         }
 
