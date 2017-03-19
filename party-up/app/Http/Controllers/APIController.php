@@ -9,14 +9,13 @@ use Illuminate\Http\Request;
 
 class APIController extends Controller
 {
-
 	public function testController()
 	{
 		return "Hello";
 	}
 
 	/* Max 10 users */
-	public function getUsersController()
+	public function fetchUsers()
 	{
 		$uri_users = 'https://staging-api.moj.io/v1/users?MojioAPIToken=';
 		$mojio_api_token = env('APP_MOJIO_TOKEN','');
@@ -29,11 +28,11 @@ class APIController extends Controller
 			$sort, []);
 
 		$result = json_decode($res->getBody()->getContents());
-		dd($result);
+        return $result;
 	}
 
 	/* Max 10 vehicles */
-	public function getVehiclesController()
+	public function fetchVehicles()
 	{
 		$uri_users = 'https://staging-api.moj.io/v1/vehicles?MojioAPIToken=';
 
@@ -46,7 +45,8 @@ class APIController extends Controller
 			$mojio_api_token .
 			$sort, []);
 		$result = json_decode($res->getBody()->getContents());
-		dd($result);
+        return $result;
 	}
+
 
 }
