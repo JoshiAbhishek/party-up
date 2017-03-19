@@ -31,9 +31,9 @@
 			<!-- Main -->
 					<section id="main">
 						<header>
-							<span class="avatar"><img src="images/avatar.jpg" alt="" /></span>
-							<h1>Jane Doe</h1>
-							<p>Senior Psychonautics Engineer</p>
+							<span class="avatar"><img src="http://arwenevecom.ipage.com/Flight/Images/Compass.gif" alt="" /></span>
+							<h1>PARTY UP</h1>
+							<p>Live Life Multiplayer</p>
 						</header>
 						<footer>
 							<!--
@@ -43,7 +43,7 @@
 								<li><a href="#" class="fa-facebook">Facebook</a></li>
 							</ul>
 							-->
-							<button id="homeLoginButton">Login</button><button id="homeRegisterButton">Register</button>
+							<button id="homeLoginButton">Login with Mojio</button>
 						</footer>
 					</section>
 
