@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('mojio_id');
+            $table->string('user_id');
             $table->string('username');
             $table->boolean('broadcasting');
             $table->string('first_name');
