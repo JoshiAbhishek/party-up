@@ -17,6 +17,8 @@
 
     console.log(access_token);
     console.log(expires_in);
+
+    window.location.href = '/signin/' + access_token + '/' + expires_in;
 </script>
 
 </body>
