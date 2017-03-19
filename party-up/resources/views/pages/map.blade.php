@@ -51,12 +51,10 @@
 
             directionsDisplay.setMap(map);
 
-            // Create the search box and link it to the UI element.
             var input = document.getElementById('pac-input');
             var searchBox = new google.maps.places.SearchBox(input);
             map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-            // Bias the SearchBox results towards current map's viewport.
             map.addListener('bounds_changed', function () {
                 searchBox.setBounds(map.getBounds());
             });
@@ -70,7 +68,6 @@
 
                 placeSearch = {lat: places[0].geometry.location.lat(), lng: places[0].geometry.location.lng()} ;
 
-                // For each place, get the icon, name and location.
                 var bounds = new google.maps.LatLngBounds();
                 places.forEach(function (place) {
                     if (!place.geometry) {
@@ -79,7 +76,6 @@
                     }
 
                     if (place.geometry.viewport) {
-                        // Only geocodes have viewport.
                         bounds.union(place.geometry.viewport);
                     } else {
                         bounds.extend(place.geometry.location);
@@ -95,7 +91,6 @@
 
             function showPosition(position) {
                 currentDriver = {lat: position.coords.latitude, lng: position.coords.longitude};
-                //console.log(currentDriver);
                 
                 var bounds = new google.maps.LatLngBounds();
                 bounds.extend(currentDriver);
@@ -105,16 +100,12 @@
 
         function updateCenter() {
              if ((!map.getBounds().contains(currentDriver))) {
-                //map.setCenter(marker.getPosition());  
-                //map.panTo(marker.getPosition());  
-
                 var bounds = new google.maps.LatLngBounds();
                 bounds.extend(currentDriver);
                 map.fitBounds(bounds);
             }
         }
 
-        //Create route start
         function createRouteStart() {
             routeStart = placeSearch;
             console.log("Route Start: " + routeStart);
@@ -122,7 +113,6 @@
             addRouteStartEndMarker("start");
         }
 
-        //Create route end
         function createRouteEnd() {
             routeEnd = placeSearch;
             console.log("Route End: " + routeEnd);
@@ -133,13 +123,13 @@
         function createWaypoint() {
             console.log(placeSearch);
             locations.push(placeSearch);
+
+            //Push to Service?
+
             addWaypoints();
         }
 
         function addWaypoints() {
-            //var pos = [{ lat: -25.363, lng: 131.044 }, { lat: 41.878, lng: -87.629 }]; //Need to get waypoint data / add to it
-            //locations = pos;
-
             addWaypointMarkers();
         }
 
@@ -159,12 +149,16 @@
         function addOtherDrivers() {
             var drivers = [{ lat: 41.878, lng: -87.639 }, { lat: 41.878, lng: -85.629 }, { lat: 41.878, lng: -83.619 }, { lat: 41.878, lng: -81.609 }]; //Need to get other driver data / add to it
 
+            //Retrieve Data From Service
+
             otherDrivers = drivers;
 
             addOtherDriverMarkers();
         }
 
        function addOtherDriverMarkers() {
+
+            //Get Driver Info As Parameters
 
             var i;
             for (i = 0; i < otherDrivers.length; i++) {
@@ -180,17 +174,19 @@
                 currentDriver = curr;
             } 
 
+            //Push to Service ?
+
             addCurrentDriverMarker();
         }
 
         function addCurrentDriverMarker() {
             addDriverMarkers(currentDriver, 'Driver Name', '<p>Driver Content</p>', 'driver');
 
-
             map.setCenter(new google.maps.LagLng(currentDriver));
         }
 
         function addRouteStartEndMarker(type) {
+
             //Update to remove old start / end
 
             var pos;
