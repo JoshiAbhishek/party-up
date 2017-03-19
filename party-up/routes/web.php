@@ -20,7 +20,7 @@ Route::post('/Groups/create', 'GroupsController@createGroup');
 
 Route::post('/Groups/join', 'GroupsController@joinGroup');
 
-Route::get('/Group/{group_id}/', 'MapController@getMap');
+Route::get('/Group/{group_id}/', 'GroupsController@getGroupUsers');
 
 /*
 Route::get('/', 'APIController@testController');

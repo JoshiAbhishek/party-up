@@ -35,6 +35,23 @@ class GroupsController extends Controller
 		return view('pages.groups', $this->blade_data);
     }
 
+	public function getGroupUsers($group_id) {
+		$this->blade_data['group_id'] = $group_id;
+        $group = groups::find($group_id);
+        $this->blade_data['group_name'] = $group->group_name;
+        $this->blade_data['group_code'] = $group->group_code;
+        $members = memberships::
+            join('users','memberships.user_id','=','users.id') ->
+            where('group_id',$group_id)->get();
+        $names = array();
+        foreach($members as $member) {
+            $names[] = [$member->username,$member->broadcasting];
+        }
+        $this->blade_data['usernames'] = $names;
+		$this->blade_data['nothing'] = 'nothing';
+		return view('pages.map', $this->blade_data);
+	}
+
     public function createGroup() {
         $id = 1;
         $group = new groups;
