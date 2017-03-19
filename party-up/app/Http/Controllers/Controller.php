@@ -18,12 +18,12 @@ class Controller extends BaseController
     public function checkLoginStatus(Request $request){
         if(!$request->session()->has('access_token')){
             echo("Redirect");
-            return Redirect::to('/signin');
+            redirect('/signin');
         }else if(Carbon::now()->gt($request->session()->get('expire_time'))){
             $request->session()->forget('access_token');
             $request->session()->forget('expire_time');
             echo("Redirect");
-            return Redirect::to('/signin');
+            redirect('/signin');
         }else{
             // Authenticated
         }
