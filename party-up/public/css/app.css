@@ -49,6 +49,20 @@ body {
 	float: none;
 }
 
+#menu h2 {
+	margin-top: 5%;
+	color: white;
+}
+
+.teamMember {
+	padding: 20px;
+	border : 1px solid white;
+}
+
+.teamMember h3 {
+	color: white;
+}
+
 .groupsButton {
 	color: white !important;
 }

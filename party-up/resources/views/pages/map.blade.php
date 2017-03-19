@@ -24,6 +24,14 @@
 	<div id="menu">
 		<button class="backButton" onclick="toggleMenu()">Back</button>
 		<button class="groupsButton" onclick="location.href='/Groups'">Groups</button>
+		<h1> Current Party </h1>
+		<div id="currentGroup"> 
+			@foreach ($cars as $car)	
+			<div class="teamMember">
+				<h2> {!! $car[4].' '.$car[5] !!} </h2>
+			</div>
+			@endforeach
+		</div>
 	</div>
     <script>
 		$("#notifications").toggle();
@@ -227,6 +235,7 @@
                 lat = Number("{{$car[2]}}");
                 long = Number("{{$car[3]}}");
                 if(broadcasting == '1') {
+				// Need to not push if the this is the driver. 
                     otherDrivers.push({lat: lat, lng: long, name: username});
                 }
             @endforeach

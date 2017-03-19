@@ -81,7 +81,9 @@ class GroupsController extends Controller
 
         $cars = array();
         foreach($people as $member) {
-            $cars[] = [$member->username,$member->broadcasting,$member->lat,$member->lng];
+			$first_name = User::where('username', $member->username)->first()->first_name;
+			$last_name = User::where('username', $member->username)->first()->last_name;
+            $cars[] = [$member->username,$member->broadcasting,$member->lat,$member->lng, $first_name, $last_name];
         }
 
         $this->blade_data['cars'] = $cars;
