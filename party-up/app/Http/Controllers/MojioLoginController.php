@@ -9,10 +9,10 @@ use Carbon\Carbon;
 
 class MojioLoginController extends Controller
 {
-    public function test(Request $request, $access_token, $expires_in){
+    public function setSession(Request $request, $access_token, $expires_in){
         $request->session()->put('access_token', $access_token);
         $request->session()->put('expire_time', Carbon::now()->addSeconds($expires_in));
 
-        return Redirect::to('/groups');
+        return Redirect::to('/Groups');
     }
 }

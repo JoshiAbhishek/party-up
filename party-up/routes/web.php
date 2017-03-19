@@ -30,7 +30,7 @@ Route::get('/signin', function () {
     return view('signin');
 });
 
-Route::get('/signin/{access_token}/{expires_in}', 'MojioLoginController@test');
+Route::get('/signin/{access_token}/{expires_in}', 'MojioLoginController@setSession');
 
 Route::get('/access', function(){
     return view('access');
