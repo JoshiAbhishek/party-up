@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 class DataController extends APIController
 {
-    public function updateData() {
-		parent::checkLoginStatus();
+    public function updateData(Request $request) {
+		parent::checkLoginStatus($request);
 
         $vehicles = $this->fetchVehicles();
 		$users = $this->fetchUsers();
