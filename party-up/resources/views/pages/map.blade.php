@@ -7,6 +7,7 @@
         <button id="locationButton" onclick="createWaypoint()">Add Location</button>
         <button id="startButton" onclick="createRouteStart()">Add Start</button>
         <button id="endButton" onclick="createRouteEnd()">Add End</button>
+        <button id="broadcastButton" onclick="broadcast()">Broadcasting</button>
         {{$group_name}}
         {{$group_code}}
         @foreach ($cars as $car)
@@ -19,6 +20,13 @@
 
     <div id="map"></div>
     <script>
+
+        broadcast = function() {
+            $.ajax({
+              url: "/setBroadcast",
+            }); 
+        };
+
 		var myVar = setInterval(myTimer, 10000);
 
         function myTimer() {
