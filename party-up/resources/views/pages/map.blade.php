@@ -355,33 +355,45 @@
                 title: title
             });
             marker.addListener('click', function () {
-                drawDistance(marker.position);
-                console.log((Math.round( totalDistance * 0.00062137 )));
-                console.log(Math.round( totalDuration / 60 ));  
+                CalcDriverTrip(marker.position);
                 infowindow.open(map, marker);
             });
         }
 
-        function drawDistance(position) {
+        var tD;
+        var tR;
+
+        function CalcDriverTrip(position) {
             if(routeEnd != null) {
+                var result;
+
                 directionsService.route({
+                    origin: position,
                     destination: routeEnd,
                     travelMode: 'DRIVING'
                     }, function(response, status) {
                     if (status === 'OK') {
-                        totalDistance = 0;
-                        totalDuration = 0;
+                        //result = response;
+
+                        var tD = 0;
+                        var tR = 0;
                         var legs = response.routes[0].legs;
                         for(var i=0; i<legs.length; ++i) {
-                            totalDistance += legs[i].distance.value;
-                            totalDuration += legs[i].duration.value;
-                        }                      
+                            tD += legs[i].distance.value;
+                            tR += legs[i].duration.value;
+                        }   
 
-                        directionsDisplay.setDirections(response);                        
+                        //console.log(tD * 0.00062137 );
+                        //console.log(tR / 60 );  
+
+                        console.log((Math.round( tD * 0.00062137 )));
+                        console.log(Math.round( tR / 60 ));                 
+
+                        directionsDisplay.setDirections(response);
                     } else {
                         window.alert('Directions request failed due to ' + status);
                     }
-                });
+                });   
             }
         }
 
