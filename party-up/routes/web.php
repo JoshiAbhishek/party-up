@@ -17,3 +17,10 @@ Route::get('/Groups', 'GroupsController@getGroups');
 
 Route::get('/Group/{group_id}/', 'MapController@getMap');
 
+/*
+Route::get('/', 'APIController@testController');
+
+Route::get('/getUsers', 'APIController@getUsersController');
+
+Route::get('/getVehicles', 'APIController@getVehiclesController');
+*/
