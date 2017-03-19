@@ -11,4 +11,9 @@
 |
 */
 
-Route::get('/', 'APIController@testController');
+Route::get('/', 'HomeController@getLogin');
+
+Route::get('/Groups', 'GroupsController@getGroups');
+
+Route::get('/Group/{group_id}/', 'MapController@getMap');
+
