@@ -6,6 +6,7 @@ use App\Models\groups;
 use App\Models\memberships;
 use App\Models\locations;
 use App\Models\vehicles;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
@@ -13,14 +14,16 @@ use Redirect;
 class GroupsController extends Controller
 {
 
-	/*
-	public function getGroups() {
-		// For Testing Purposes
-		$Groups = array('Group 1', 'Group 2', 'Group 3', 'Group 4');
-		$this->blade_data['groups'] = $Groups;
-		return view('pages.groups', $this->blade_data);
-	}
-	*/
+    public function setBroadcast() {
+        $id = 1;
+        $user = User::find($id);
+        if($user->broadcasting==1) {
+            $user->broadcasting = 0;
+        } else {
+            $user->broadcasting = 1;
+        }
+        $user->save();
+    }
 
     // Get id of currently logged in user
     public function getUserGroups() {

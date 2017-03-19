@@ -32,3 +32,6 @@ Route::get('/signin/{access_token}/{expires_in}', 'MojioLoginController@setSessi
 Route::get('/access', function(){
     return view('access');
 });
+
+Route::get('/setBroadcast', 'GroupsController@setBroadcast');
+

@@ -9,6 +9,7 @@
         <button id="startButton" onclick="createRouteStart()">Add Start</button>
         <button id="endButton" onclick="createRouteEnd()">Add End</button>
 		<button id="menuButton" onclick="toggleMenu()">More</button>
+        <button id="broadcastButton" onclick="broadcast()">Broadcasting</button>
         {{$group_name}}
         {{$group_code}}
         {{$group_dest}}
@@ -33,6 +34,13 @@
     <script>
 		$("#notifications").toggle();
 		$("#menu").toggle();
+
+        broadcast = function() {
+            $.ajax({
+              url: "/setBroadcast",
+            }); 
+        };
+
 		var myVar = setInterval(myTimer, 10000);
 
         function myTimer() {
