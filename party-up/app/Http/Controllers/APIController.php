@@ -14,6 +14,21 @@ class APIController extends Controller
 		return "Hello";
 	}
 
+    public function fetchCurrentUser() 
+    {
+        $uri_users = 'https://staging-api.moj.io/v1/users/me?MojioAPIToken=';
+		$mojio_api_token = env('APP_MOJIO_TOKEN','');
+
+		$client = new Client();
+		$res = $client->request('GET', 
+			$uri_users . 
+			$mojio_api_token, []);
+
+		$result = json_decode($res->getBody()->getContents());
+        return $result;
+    
+    }
+
 	/* Max 10 users */
 	public function fetchUsers()
 	{
