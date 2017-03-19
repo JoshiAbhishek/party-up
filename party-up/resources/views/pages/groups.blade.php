@@ -9,5 +9,15 @@
 				</div>
 			@endforeach
 		</div>
+
+        <div>
+{{ Form::open(array('url' => '/Groups')) }}
+
+{{ Form::text('name') }}
+
+{{ Form::submit('Submit') }}
+
+{{ Form::close() }}
+        </div>
 @endsection
 
