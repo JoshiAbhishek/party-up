@@ -19,6 +19,7 @@ class CreateGroupsTable extends Migration
             $table->foreign('destination_id')->references('id')->on('locations');
             $table->string('group_name');
             $table->timestamps();
+            $table->integer('group_code');
         });
     }
 

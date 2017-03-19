@@ -15,7 +15,10 @@ Route::get('/', 'HomeController@getLogin');
 
 Route::get('/Groups', 'GroupsController@getUserGroups');
 
-Route::post('/Groups', 'GroupsController@createGroup');
+Route::get('/Groups/create', function () { return view('pages.groups_create');});
+Route::post('/Groups/create', 'GroupsController@createGroup');
+
+Route::post('/Groups/join', 'GroupsController@joinGroup');
 
 Route::get('/Group/{group_id}/', 'MapController@getMap');
 
