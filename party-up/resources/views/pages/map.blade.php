@@ -4,7 +4,7 @@
 @section('content')
 	<div>
         <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-        <button id="locationButton">Add Location</button>
+        <button id="locationButton" onclick="createWaypoint()">Add Location</button>
         <button id="startButton" onclick="createRouteStart()">Add Start</button>
         <button id="endButton" onclick="createRouteEnd()">Add End</button>
         {{$group_name}}
@@ -28,7 +28,7 @@
         var map; //Main map
         var currentDriver; //Current Driver Position
         var otherDrivers; //Other Drivers
-        var locations; //Locations On Route
+        var locations = []; //Locations On Route
         var routeStart; //Route Start
         var routeEnd; //Route End
         var directionsService;
@@ -64,7 +64,7 @@
                     return;
                 }
 
-                placeSearch = places[0];
+                placeSearch = {lat: places[0].geometry.location.lat(), lng: places[0].geometry.location.lng()} ;
 
                 // For each place, get the icon, name and location.
                 var bounds = new google.maps.LatLngBounds();
@@ -126,10 +126,15 @@
             //Set Waypoint For End
         }
 
-        function addWaypoints() {
-            var pos = [{ lat: -25.363, lng: 131.044 }, { lat: 41.878, lng: -87.629 }]; //Need to get waypoint data / add to it
+        function createWaypoint() {
+            console.log(placeSearch);
+            locations.push(placeSearch); //test
+        }
 
-            locations = pos;
+        function addWaypoints() {
+            //var pos = [{ lat: -25.363, lng: 131.044 }, { lat: 41.878, lng: -87.629 }]; //Need to get waypoint data / add to it
+
+            //locations = pos;
 
             addWaypointMarkers();
         }
