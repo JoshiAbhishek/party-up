@@ -37,9 +37,25 @@ body {
 	margin-bottom: 0em;
 }
 
+#groups {
+	width: 70%;
+}
+
 #groups .btn {
 	margin-top: 2em !important;
 	margin-bottom: 2em !important;
+	padding: 10px;
+	width: 100%;
+}
+
+#addButton {
+	border-width: 2px;
+}
+
+#map {
+	width: 80%;
+	height: 800px;
+	overflow: visible;
 }
 
 .modal .btn {
@@ -49,3 +65,5 @@ body {
 body.modal-open #wrapper {
 	display: inline !important;
 }
+
+

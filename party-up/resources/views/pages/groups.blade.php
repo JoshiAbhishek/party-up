@@ -35,7 +35,7 @@
 			</div>
 			<div>
 			{{ Form::open(array('url' => '/Groups/create','method' => 'GET')) }}
-			{{ Form::submit('+') }}
+			{{ Form::submit('+', array('id' => 'addButton')) }}
 			</div>
 
 <!--

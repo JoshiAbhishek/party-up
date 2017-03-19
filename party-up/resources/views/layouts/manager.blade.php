@@ -17,12 +17,12 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         <!--[if lte IE 8]><script src="assets/js/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="./css/main.css" />
+		<link rel="stylesheet" href="/css/main.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<noscript><link rel="stylesheet" href="./css/noscript.css" /></noscript>
 
-        <link rel="stylesheet" href="./css/app.css" type="text/css">
+        <link rel="stylesheet" href="/css/app.css" type="text/css">
     </head>
     <body class="is-loading">
 
