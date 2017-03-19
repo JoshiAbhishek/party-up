@@ -1,7 +1,7 @@
 <?php 
 
-$client_id = "6759045b-9266-4d79-be65-a06f92b9e059";
-$redirect_uri = "duncanandrew.com";
+$client_id = "2906e624-6097-43da-829a-5e0d6e0fcf7d";
+$redirect_uri = "https://ec2-35-166-105-107.us-west-2.compute.amazonaws.com/access";
 $client_secret = "d44c7d02-ddd5-46a3-a6a2-68890abbd561";
 
 ?>

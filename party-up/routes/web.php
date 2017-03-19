@@ -19,4 +19,8 @@ Route::get('/signin', function () {
     return view('signin');
 });
 
-Route::post('/signin/{access_token}', 'MojioLoginController@test($access_token)');
+Route::get('/signin/{access_token}/{expires_in}', 'MojioLoginController@test($access_token, $expires_in)');
+
+Route::get('/access', function(){
+    return view('access');
+});
