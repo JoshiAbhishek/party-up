@@ -9,6 +9,10 @@
         <button id="endButton" onclick="createRouteEnd()">Add End</button>
         {{$group_name}}
         {{$group_code}}
+        @foreach ($usernames as $username)
+            {{$username[0]}}
+            {{$username[1]}}
+        @endforeach
     </div>
 
     <div id="map"></div>
