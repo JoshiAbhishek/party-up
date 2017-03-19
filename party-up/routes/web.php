@@ -12,3 +12,7 @@
 */
 
 Route::get('/', 'APIController@testController');
+
+Route::get('/getUsers', 'APIController@getUsersController');
+
+Route::get('/getVehicles', 'APIController@getVehiclesController');
