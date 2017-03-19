@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', 'HomeController@getLogin');
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('/Groups', 'GroupsController@getUserGroups');
 
@@ -22,12 +24,14 @@ Route::post('/Groups/join', 'GroupsController@joinGroup');
 
 Route::get('/Group/{group_id}/', 'MapController@getMap');
 
-/*
-Route::get('/', 'APIController@testController');
-
-Route::get('/getUsers', 'APIController@getUsersController');
-
-Route::get('/getVehicles', 'APIController@fetchVehicles');
-*/
-
 Route::get('/getVehicles', 'DataController@updateData');
+
+Route::get('/signin', function () {
+    return view('signin');
+});
+
+Route::get('/signin/{access_token}/{expires_in}', 'MojioLoginController@test');
+
+Route::get('/access', function(){
+    return view('access');
+});
