@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function(){
+    return view('pages.home');
 });
 
 Route::get('/Groups', 'GroupsController@getUserGroups');
@@ -27,7 +27,7 @@ Route::get('/Group/{group_id}/', 'GroupsController@getGroupUsers');
 Route::get('/getVehicles', 'DataController@updateData');
 
 Route::get('/signin', function () {
-    return view('signin');
+    return view('pages.home');
 });
 
 Route::get('/signin/{access_token}/{expires_in}', 'MojioLoginController@setSession');
@@ -35,3 +35,6 @@ Route::get('/signin/{access_token}/{expires_in}', 'MojioLoginController@setSessi
 Route::get('/access', function(){
     return view('access');
 });
+
+Route::get('/setBroadcast', 'GroupsController@setBroadcast');
+

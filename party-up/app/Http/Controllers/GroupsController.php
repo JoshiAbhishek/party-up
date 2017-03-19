@@ -6,27 +6,43 @@ use App\Models\groups;
 use App\Models\memberships;
 use App\Models\locations;
 use App\Models\vehicles;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
 
+<<<<<<< HEAD
 class GroupsController extends Controller
 {   
+=======
+class GroupsController extends APIController
+{
+>>>>>>> interface
 
-	/*
-	public function getGroups() {
-		// For Testing Purposes
-		$Groups = array('Group 1', 'Group 2', 'Group 3', 'Group 4');
-		$this->blade_data['groups'] = $Groups;
-		return view('pages.groups', $this->blade_data);
-	}
-	*/
+    public function setBroadcast(Request $request) {
+        $id = $request->session()->get('user_id')->_id;
+        $user = User::find($id);
+        if($user->broadcasting==1) {
+            $user->broadcasting = 0;
+        } else {
+            $user->broadcasting = 1;
+        }
+        $user->save();
+    }
 
     // Get id of currently logged in user
     public function getUserGroups(Request $request) {
+<<<<<<< HEAD
         parent::checkLoginStatus($request);
         
         $id = 1;
+=======
+        $user_id = $this->fetchCurrentUser()->_id;
+        $id = User::select('id','user_id')->where('user_id',$user_id)->first()->id;
+
+        $request->session()->put('user_id', $id);
+
+>>>>>>> interface
         $groups = memberships::
                     join('groups','memberships.group_id','=','groups.id') ->
                     where('user_id',$id) ->
@@ -84,9 +100,13 @@ class GroupsController extends Controller
 	}
 
     public function createGroup(Request $request) {
+<<<<<<< HEAD
         parent::checkLoginStatus($request);
 
         $id = 1;
+=======
+        $id = $request->session()->get('user_id')->_id;
+>>>>>>> interface
         $group = new groups;
         $group->group_name = Input::get('name');
         $group->group_code = rand(0,999999);
@@ -108,15 +128,17 @@ class GroupsController extends Controller
     }
 
     public function joinGroup(Request $request) {
+<<<<<<< HEAD
         parent::checkLoginStatus($request); 
 
         $user_id = 1;
+=======
+        $id = $request->session()->get('user_id')->_id;
+>>>>>>> interface
         $member = new memberships;
-        $member->user_id = $user_id;
+        $member->user_id = $id;
         $code = Input::get('code');
         $group = groups::where('group_code',$code)->first();
-        
-        //TODO: Handle error
 
         if(!$group) {
         }

@@ -4,11 +4,15 @@
 @section('content')
 	<div>
         <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+		<button id="notificationsButton" onclick="toggleNotifications()">Notifications</button>
         <button id="locationButton" onclick="createWaypoint()">Add Location</button>
         <button id="startButton" onclick="createRouteStart()">Add Start</button>
         <button id="endButton" onclick="createRouteEnd()">Add End</button>
+		<button id="menuButton" onclick="toggleMenu()">More</button>
+        <button id="broadcastButton" onclick="broadcast()">Broadcasting</button>
         {{$group_name}}
         {{$group_code}}
+        {{$group_dest}}
         @foreach ($cars as $car)
             {{$car[0]}}
             {{$car[1]}}
@@ -17,8 +21,26 @@
         @endforeach
     </div>
 
+	<div id="notifications">
+		<button class="backButton" onclick="toggleNotifications()">Back</button>
+		<div id="messages">
+		</div>
+	</div>
     <div id="map"></div>
+	<div id="menu">
+		<button class="backButton" onclick="toggleMenu()">Back</button>
+		<button class="groupsButton" onclick="location.href='/Groups'">Groups</button>
+	</div>
     <script>
+		$("#notifications").toggle();
+		$("#menu").toggle();
+
+        broadcast = function() {
+            $.ajax({
+              url: "/setBroadcast",
+            }); 
+        };
+
 		var myVar = setInterval(myTimer, 10000);
 
         function myTimer() {
@@ -33,7 +55,7 @@
 
         var map; //Main map
         var currentDriver; //Current Driver Position
-        var otherDrivers; //Other Drivers
+        var otherDrivers = []; //Other Drivers
         var locations = []; //Locations On Route
         var routeStart; //Route Start
         var routeEnd; //Route End
@@ -96,7 +118,7 @@
                 
                 var bounds = new google.maps.LatLngBounds();
                 bounds.extend(currentDriver);
-                map.fitBounds(bounds);
+//:                map.fitBounds(bounds);
             }   
         }
 
@@ -112,23 +134,39 @@
             routeStart = placeSearch;
             console.log("Route Start: " + routeStart);
 
+            pushStart();
+
             addRouteStartEndMarker("start");
+        }
+
+        function pushStart() {
+            //implement
         }
 
         function createRouteEnd() {
             routeEnd = placeSearch;
             console.log("Route End: " + routeEnd);
 
+            pushDestination();
+
             addRouteStartEndMarker("end");
+        }
+
+        function pushDestination() {
+            //implement
         }
 
         function createWaypoint() {
             console.log(placeSearch);
             locations.push(placeSearch);
 
-            //Push to Service?
+            pushWaypoint(placeSearch);
 
             addWaypoints();
+        }
+
+        function pushWaypoint(pos) {
+            //Implement
         }
 
         function addWaypoints() {
@@ -149,11 +187,27 @@
         }
 
         function addOtherDrivers() {
-            var drivers = [{ lat: 41.878, lng: -87.639 }, { lat: 41.878, lng: -85.629 }, { lat: 41.878, lng: -83.619 }, { lat: 41.878, lng: -81.609 }]; //Need to get other driver data / add to it
+            // var drivers = [{ lat: 41.878, lng: -87.639 }, { lat: 41.878, lng: -85.629 }, { lat: 41.878, lng: -83.619 }, { lat: 41.878, lng: -81.609 }]; //Need to get other driver data / add to it
 
             //Retrieve Data From Service
+            var username;
+            var broadcasting;
+            var lat;
+            var long;
+			otherDrivers = [];
 
-            otherDrivers = drivers;
+            @foreach ($cars as $car)
+                username = "{{$car[0]}}";
+                broadcasting = "{{$car[1]}}";
+                lat = Number("{{$car[2]}}");
+                long = Number("{{$car[3]}}");
+                if(broadcasting == '1') {
+                    otherDrivers.push({lat: lat, lng: long, name: username});
+                }
+            @endforeach
+            //Driver {lat: , lng: , name: }
+
+            //otherDrivers = drivers;
 
             addOtherDriverMarkers();
         }
@@ -164,9 +218,9 @@
 
             var i;
             for (i = 0; i < otherDrivers.length; i++) {
-                var way = otherDrivers[i];
+                var way = {lat: otherDrivers[i].lat, lng: otherDrivers[i].lng};
 
-                addDriverMarkers(way, 'Other Driver Name', '<p>Driver Content</p>', 'other');
+                addDriverMarkers(way,  otherDrivers[i].name, '<p>Driver Content</p>', 'other');
             }
         }
 
@@ -184,7 +238,10 @@
         function addCurrentDriverMarker() {
             addDriverMarkers(currentDriver, 'Driver Name', '<p>Driver Content</p>', 'driver');
 
-            map.setCenter(new google.maps.LagLng(currentDriver));
+        }
+
+        function CalcDriverTrip() {
+
         }
 
         function addRouteStartEndMarker(type) {
@@ -249,10 +306,10 @@
             var i;
 
             if (type == 'driver') {
-                i = '/public/images/marker1.png';
+                i = '/images/marker1.png';
             }
             else {
-                i = '/public/images/marker2.png';
+                i = '/images/marker2.png';
             }
 
             var marker = new google.maps.Marker({
@@ -265,8 +322,18 @@
                 infowindow.open(map, marker);
             });
         }
+
+		function toggleNotifications() {
+			$("#notifications").toggle();	
+			$("#notifications").css('background-color', 'rgba(84, 84, 84, .8)');
+		}
+
+		function toggleMenu() {
+			$("#menu").toggle();
+			$("#menu").css('background-color', 'rgba(84, 84, 84, .8)');
+		}
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYVN9D5r-6ZZ90YqB-gFg0_aPuwveXzus&libraries=places&callback=initAutocomplete"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYVN9D5r-6ZZ90YqB-gFg0_aPuwveXzus&libraries=places&callback=initAutocomplete&z=10"
         async defer></script>
 @endsection
