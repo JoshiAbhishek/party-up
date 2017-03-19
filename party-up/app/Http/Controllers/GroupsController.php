@@ -11,11 +11,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
 
-class GroupsController extends Controller
+class GroupsController extends APIController
 {
 
-    public function setBroadcast() {
-        $id = 1;
+    public function setBroadcast(Request $request) {
+        $id = $request->session()->get('user_id')->_id;
         $user = User::find($id);
         if($user->broadcasting==1) {
             $user->broadcasting = 0;
@@ -26,8 +26,12 @@ class GroupsController extends Controller
     }
 
     // Get id of currently logged in user
-    public function getUserGroups() {
-        $id = 1;
+    public function getUserGroups(Request $request) {
+        $user_id = $this->fetchCurrentUser()->_id;
+        $id = User::select('id','user_id')->where('user_id',$user_id)->first()->id;
+
+        $request->session()->put('user_id', $id);
+
         $groups = memberships::
                     join('groups','memberships.group_id','=','groups.id') ->
                     where('user_id',$id) ->
@@ -82,8 +86,8 @@ class GroupsController extends Controller
 		return view('pages.map', $this->blade_data);
 	}
 
-    public function createGroup() {
-        $id = 1;
+    public function createGroup(Request $request) {
+        $id = $request->session()->get('user_id')->_id;
         $group = new groups;
         $group->group_name = Input::get('name');
         $group->group_code = rand(0,999999);
@@ -102,14 +106,12 @@ class GroupsController extends Controller
         $group.save();
     }
 
-    public function joinGroup() {
-        $user_id = 1;
+    public function joinGroup(Request $request) {
+        $id = $request->session()->get('user_id')->_id;
         $member = new memberships;
-        $member->user_id = $user_id;
+        $member->user_id = $id;
         $code = Input::get('code');
         $group = groups::where('group_code',$code)->first();
-        
-        //TODO: Handle error
 
         if(!$group) {
         }
