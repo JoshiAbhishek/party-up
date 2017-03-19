@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
 
-class GroupsController extends APIController
+class GroupsController extends DataController
 {
 
     public function setBroadcast(Request $request) {
@@ -35,6 +35,9 @@ class GroupsController extends APIController
     // Get id of currently logged in user
     public function getUserGroups(Request $request) {
         $user_id = $this->fetchCurrentUser()->_id;
+	
+	$this->updateData();	
+
         $id = User::select('id','user_id')->where('user_id',$user_id)->first()->id;
 
         $request->session()->put('user_id', $id);
