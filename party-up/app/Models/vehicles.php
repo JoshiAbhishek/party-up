@@ -10,6 +10,8 @@ class vehicles extends Model
 	protected $primaryKey = 'id';
 	protected $fillable = array();
 
+	public $timestamps = false;
+
 	public function locations() {
 		return $this->hasMany('App\Models\locations');	
 	}

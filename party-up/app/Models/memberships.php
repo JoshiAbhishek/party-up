@@ -10,6 +10,8 @@ class memberships extends Model
 	protected $primaryKey = 'id';
 	protected $fillable = array();
 
+	public $timestamps = false;
+
 	public function users()
 	{
 		return $this->hasMany('App\Models\Users');
