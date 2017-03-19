@@ -9,8 +9,6 @@ use Redirect;
 class MojioLoginController extends Controller
 {
     public function test(Request $request, $access_token, $expires_in){
-        dd($access_token);
-        dd($expires_in);
         $request->session()->put('access_token', $access_token);
         $request->session()->put('expire_time', Carbon::now()->addSeconds($expires_in));
         
