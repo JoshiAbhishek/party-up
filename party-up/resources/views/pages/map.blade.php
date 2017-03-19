@@ -17,6 +17,12 @@
 
         function myTimer() {
             console.log("TIMER");
+
+            addWaypoints();
+            addOtherDrivers();
+            addCurrentDriver();
+
+            updateCenter();
         }
 
         var map; //Main map
@@ -79,9 +85,29 @@
                 map.fitBounds(bounds);
             });
 
-			addWaypoints();
-            addOtherDrivers();
-            addCurrentDriver();
+			if(navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            }
+
+            function showPosition(position) {
+                currentDriver = {lat: position.coords.latitude, lng: position.coords.longitude};
+                //console.log(currentDriver);
+                
+                var bounds = new google.maps.LatLngBounds();
+                bounds.extend(currentDriver);
+                map.fitBounds(bounds);
+            }   
+        }
+        
+        function updateCenter() {
+             if ((!map.getBounds().contains(currentDriver))) {
+                //map.setCenter(marker.getPosition());  
+                //map.panTo(marker.getPosition());  
+
+                var bounds = new google.maps.LatLngBounds();
+                bounds.extend(currentDriver);
+                map.fitBounds(bounds);
+            }
         }
 
         //Create route start
