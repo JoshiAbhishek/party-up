@@ -115,7 +115,7 @@
             routeStart = placeSearch;
             console.log("Route Start: " + routeStart);
 
-            //Set Waypoint For Start
+            addRouteStartEndMarker("start");
         }
 
         //Create route end
@@ -123,17 +123,17 @@
             routeEnd = placeSearch;
             console.log("Route End: " + routeEnd);
 
-            //Set Waypoint For End
+            addRouteStartEndMarker("end");
         }
 
         function createWaypoint() {
             console.log(placeSearch);
-            locations.push(placeSearch); //test
+            locations.push(placeSearch);
+            addWaypoints();
         }
 
         function addWaypoints() {
             //var pos = [{ lat: -25.363, lng: 131.044 }, { lat: 41.878, lng: -87.629 }]; //Need to get waypoint data / add to it
-
             //locations = pos;
 
             addWaypointMarkers();
@@ -148,7 +148,7 @@
                 var long = way.lng;
                 var position = new google.maps.LatLng(lat, long);
 
-                addLocationMarker(position, 'TITLE', '<p>CONTENT<p>');
+                addLocationMarker(position, 'Waypoint', '');
             }
         }
 
@@ -186,8 +186,26 @@
             map.setCenter(new google.maps.LagLng(currentDriver));
         }
 
-        function addRouteStartEndMarker(pos, type) {
+        function addRouteStartEndMarker(type) {
+            //Update to remove old start / end
 
+            var pos;
+            var letter;
+
+            if(type == "start") {
+                pos = routeStart;
+                letter = "A";
+            }
+            else {
+                pos = routeEnd;
+                letter = "B";
+            }
+
+            var marker = new google.maps.Marker({
+                position: pos,
+                map: map,
+                label: letter
+            });
         }
 
         function addLocationMarker(pos, title, content) {
