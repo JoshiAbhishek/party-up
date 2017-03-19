@@ -9,6 +9,7 @@
         <button id="endButton" onclick="createRouteEnd()">Add End</button>
         {{$group_name}}
         {{$group_code}}
+        {{$group_dest}}
         @foreach ($cars as $car)
             {{$car[0]}}
             {{$car[1]}}
@@ -112,23 +113,39 @@
             routeStart = placeSearch;
             console.log("Route Start: " + routeStart);
 
+            pushStart();
+
             addRouteStartEndMarker("start");
+        }
+
+        function pushStart() {
+            //implement
         }
 
         function createRouteEnd() {
             routeEnd = placeSearch;
             console.log("Route End: " + routeEnd);
 
+            pushDestination();
+
             addRouteStartEndMarker("end");
+        }
+
+        function pushDestination() {
+            //implement
         }
 
         function createWaypoint() {
             console.log(placeSearch);
             locations.push(placeSearch);
 
-            //Push to Service?
+            pushWaypoint(placeSearch);
 
             addWaypoints();
+        }
+
+        function pushWaypoint(pos) {
+            //Implement
         }
 
         function addWaypoints() {
@@ -149,9 +166,25 @@
         }
 
         function addOtherDrivers() {
-            var drivers = [{ lat: 41.878, lng: -87.639 }, { lat: 41.878, lng: -85.629 }, { lat: 41.878, lng: -83.619 }, { lat: 41.878, lng: -81.609 }]; //Need to get other driver data / add to it
+            // var drivers = [{ lat: 41.878, lng: -87.639 }, { lat: 41.878, lng: -85.629 }, { lat: 41.878, lng: -83.619 }, { lat: 41.878, lng: -81.609 }]; //Need to get other driver data / add to it
 
             //Retrieve Data From Service
+            var username;
+            var broadcasting;
+            var lat;
+            var long;
+
+            @foreach ($cars as $car)
+                username = {{$car[0]}};
+                broadcasting = {{$car[1]}};
+                lat = {{$car[2]}};
+                long = {{$car[3]}};
+
+                if(broadcasting == 1) {
+                    otherDrivers.push({lat: lat, lng: long, name: username});
+                }
+            @endforeach
+            //Driver {lat: , lng: , name: }
 
             otherDrivers = drivers;
 
@@ -185,6 +218,10 @@
             addDriverMarkers(currentDriver, 'Driver Name', '<p>Driver Content</p>', 'driver');
 
             map.setCenter(new google.maps.LagLng(currentDriver));
+        }
+
+        function CalcDriverTrip() {
+
         }
 
         function addRouteStartEndMarker(type) {
