@@ -11,6 +11,12 @@
 
     <div id="map"></div>
     <script>
+		var myVar = setInterval(myTimer, 10000);
+
+        function myTimer() {
+            console.log("TIMER");
+        }
+
         var map; //Main map
         var currentDriver; //Current Driver Position
         var otherDrivers; //Other Drivers
@@ -32,18 +38,6 @@
             });
 
             directionsDisplay.setMap(map);
-
-            /*
-            if (routeStart != null) {
-                addWaypoints();
-                addOtherDrivers();
-                addCurrentDriver();
-            }
-            */
-
-            addWaypoints();
-            addOtherDrivers();
-            addCurrentDriver();
 
             // Create the search box and link it to the UI element.
             var input = document.getElementById('pac-input');
@@ -82,6 +76,10 @@
                 });
                 map.fitBounds(bounds);
             });
+
+			addWaypoints();
+            addOtherDrivers();
+            addCurrentDriver();
         }
 
         //Create route start
