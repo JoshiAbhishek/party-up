@@ -11,13 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
 
-<<<<<<< HEAD
-class GroupsController extends Controller
-{   
-=======
 class GroupsController extends APIController
 {
->>>>>>> interface
+
 
     public function setBroadcast(Request $request) {
         $id = $request->session()->get('user_id')->_id;
