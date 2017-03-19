@@ -4,3 +4,24 @@ body {
 	font-family: 'Open Sans';
 	text-align: center;
 }
+
+body {
+	background-image: url('http://vignette3.wikia.nocookie.net/hexrblx/images/5/50/Wiki-background/revision/latest?cb=20150222044922');
+}
+
+#home h1 {
+	color: #ccf8b6;
+	font-size: 75px;
+	font-weight: bold;
+	vertical-align: bottom;
+	height: 100px;
+	background-color: rgba(48, 48, 48, 0.92);
+	margin-top: 0;
+	padding: 5px;
+}
+
+#home a {
+	font-size: 25px;
+	margin-top: 20%;
+	padding: 20px 100px;
+}

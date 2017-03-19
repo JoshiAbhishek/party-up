@@ -15,9 +15,9 @@ class CreateVehiclesTable extends Migration
     {
         Schema::create('vehicles', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('vehicle_id');
-            $table->integer('owner_id')->unsigned();
-            $table->integer('location_id')->unsigned();
+            $table->string('vehicle_id')->nullable();
+            $table->integer('owner_id')->index()->unsigned();
+            $table->integer('location_id')->index()->unsigned();
             $table->foreign('owner_id')->references('id')->on('users');
             $table->foreign('location_id')->references('id')->on('locations');
         });
