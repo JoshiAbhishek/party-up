@@ -2,9 +2,10 @@
 
 body {
 	font-family: 'Open Sans';
-	text-align: center;
+	text-align: center !important;
 }
 
+/*
 body {
 	background-image: url('http://vignette3.wikia.nocookie.net/hexrblx/images/5/50/Wiki-background/revision/latest?cb=20150222044922');
 }
@@ -24,4 +25,27 @@ body {
 	font-size: 25px;
 	margin-top: 20%;
 	padding: 20px 100px;
+}
+*/
+
+.navbar {
+	margin-bottom: 0em;
+}
+
+.jumbotron {
+	margin-top: 0em;
+	margin-bottom: 0em;
+}
+
+#groups .btn {
+	margin-top: 2em !important;
+	margin-bottom: 2em !important;
+}
+
+.modal .btn {
+	color: white !important;
+}
+
+body.modal-open #wrapper {
+	display: inline !important;
 }
