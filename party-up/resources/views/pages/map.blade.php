@@ -47,7 +47,7 @@
 
         var map; //Main map
         var currentDriver; //Current Driver Position
-        var otherDrivers; //Other Drivers
+        var otherDrivers = []; //Other Drivers
         var locations = []; //Locations On Route
         var routeStart; //Route Start
         var routeEnd; //Route End
@@ -186,14 +186,16 @@
             var broadcasting;
             var lat;
             var long;
+			otherDrivers = [];
 
             @foreach ($cars as $car)
-                username = {{$car[0]}};
-                broadcasting = {{$car[1]}};
-                lat = {{$car[2]}};
-                long = {{$car[3]}};
+                username = "{{$car[0]}}";
+                broadcasting = "{{$car[1]}}";
+                lat = (float) "{{$car[2]}}";
+                long = (float) "{{$car[3]}}";
 
-                if(broadcasting == 1) {
+                if(broadcasting == '1') {
+					console.log(otherDrivers);
                     otherDrivers.push({lat: lat, lng: long, name: username});
                 }
             @endforeach
