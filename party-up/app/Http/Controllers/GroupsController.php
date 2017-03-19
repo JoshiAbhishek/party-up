@@ -11,9 +11,7 @@ use Illuminate\Support\Facades\Input;
 use Redirect;
 
 class GroupsController extends Controller
-{
-
-    
+{   
 
 	/*
 	public function getGroups() {
@@ -26,7 +24,7 @@ class GroupsController extends Controller
 
     // Get id of currently logged in user
     public function getUserGroups() {
-        this::checkLoginStatus();
+        parent::checkLoginStatus();
         
         $id = 1;
         $groups = memberships::
@@ -42,7 +40,7 @@ class GroupsController extends Controller
     }
 
 	public function getGroupUsers($group_id) {
-        this::checkLoginStatus();
+        parent::checkLoginStatus();
 
 		$this->blade_data['group_id'] = $group_id;
         $group = groups::find($group_id);
@@ -86,7 +84,7 @@ class GroupsController extends Controller
 	}
 
     public function createGroup() {
-        this::checkLoginStatus();
+        parent::checkLoginStatus();
 
         $id = 1;
         $group = new groups;
@@ -102,7 +100,7 @@ class GroupsController extends Controller
     }
 
     public function updateDestination($id,$loc_id) {
-        this::checkLoginStatus();
+        parent::checkLoginStatus();
 
         $group = groups::find($id);
         $group->destination_id = $loc_id;
@@ -110,7 +108,7 @@ class GroupsController extends Controller
     }
 
     public function joinGroup() {
-        this::checkLoginStatus(); 
+        parent::checkLoginStatus(); 
 
         $user_id = 1;
         $member = new memberships;
@@ -130,7 +128,7 @@ class GroupsController extends Controller
     }
 
     public function leaveGroup() {
-        this::checkLoginStatus();
+        parent::checkLoginStatus();
 
     }
 }
