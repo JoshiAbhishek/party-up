@@ -357,6 +357,31 @@
             });
         }
 
+        function drawDistance(position) {
+            if(routeEnd != null) {
+                directionsService.route({
+                    destination: routeEnd,
+                    travelMode: 'DRIVING'
+                    }, function(response, status) {
+                    if (status === 'OK') {
+                        var totalDistance = 0;
+                        var totalDuration = 0;
+                        var legs = response.routes[0].legs;
+                        for(var i=0; i<legs.length; ++i) {
+                            totalDistance += legs[i].distance.value;
+                            totalDuration += legs[i].duration.value;
+                        }
+                        console.log((Math.round( totalDistance * 0.00062137 )));
+                        console.log(Math.round( totalDuration / 60 ));                        
+
+                        directionsDisplay.setDirections(response);                        
+                    } else {
+                        window.alert('Directions request failed due to ' + status);
+                    }
+                });
+            }
+        }
+
 		function toggleNotifications() {
 			$("#notifications").toggle();	
 			$("#notifications").css('background-color', 'rgba(84, 84, 84, .8)');
