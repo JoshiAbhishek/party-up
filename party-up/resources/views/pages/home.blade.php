@@ -2,6 +2,15 @@
 @section('headerFiles')
 @endsection
 @section('content')
+
+<?php 
+
+$client_id = "2906e624-6097-43da-829a-5e0d6e0fcf7d";
+$redirect_uri = "https://ec2-35-166-105-107.us-west-2.compute.amazonaws.com/access";
+$client_secret = "d44c7d02-ddd5-46a3-a6a2-68890abbd561";
+
+?>
+
 		<div id="home">
 
 			<!--
@@ -43,17 +52,9 @@
 								<li><a href="#" class="fa-facebook">Facebook</a></li>
 							</ul>
 							-->
-							<button id="homeLoginButton">Login with Mojio</button>
+							<a href="https://staging-api.moj.io/OAuth2/authorize?response_type=token&client_id=<?=$client_id?>&redirect_uri=<?=$redirect_uri?>"><button id="homeLoginButton">Login with Mojio</button></a>
 						</footer>
 					</section>
 
-					<script>
-						$("#homeLoginButton").on("click", function(){
-							window.location.href = "/Groups";
-						});
-						$("#homeRegisterButton").on("click", function(){
-							window.location.href = "/Groups";
-						});
-					</script>
 		</div>
 @endsection
