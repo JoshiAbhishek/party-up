@@ -23,8 +23,8 @@ class GroupsController extends Controller
 	*/
 
     // Get id of currently logged in user
-    public function getUserGroups() {
-        parent::checkLoginStatus();
+    public function getUserGroups(Request $request) {
+        parent::checkLoginStatus($request);
         
         $id = 1;
         $groups = memberships::

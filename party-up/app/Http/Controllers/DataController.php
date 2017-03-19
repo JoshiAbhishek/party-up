@@ -58,8 +58,8 @@ class DataController extends APIController
 		}
     }
 
-    public function getData() {
-		parent::checkLoginStatus();
+    public function getData(Request $request) {
+		parent::checkLoginStatus($request);
 
     }
 }
