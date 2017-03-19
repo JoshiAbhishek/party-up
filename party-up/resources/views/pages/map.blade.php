@@ -355,7 +355,7 @@
                 title: title
             });
             marker.addListener('click', function () {
-                CalcDriverTrip(marker.position);
+                CalcDriverTrip(marker.title, marker.position);
                 infowindow.open(map, marker);
             });
         }
@@ -363,7 +363,7 @@
         var tD;
         var tR;
 
-        function CalcDriverTrip(position) {
+        function CalcDriverTrip(title, position) {
             if(routeEnd != null) {
                 var result;
 
@@ -386,8 +386,10 @@
                         //console.log(tD * 0.00062137 );
                         //console.log(tR / 60 );  
 
-                        console.log((Math.round( tD * 0.00062137 )));
-                        console.log(Math.round( tR / 60 ));                 
+                        $("#currentGroup").add("<p>Distance: " + (Math.round( tD * 0.00062137 )) + "Duration: " + Math.round( tR / 60 ) + "</p>");
+
+                        //console.log();
+                        //console.log();                 
 
                         directionsDisplay.setDirections(response);
                     } else {
