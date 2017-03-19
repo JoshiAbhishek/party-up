@@ -4,6 +4,12 @@
 @section('content')
 		<div id="groups">
 
+			@foreach($groups as $group)
+				<div class="group">
+					<a href='/Group/{{$group[0]}}/' class="btn btn-default" role="button"> {{$group[1]}} </a>
+				</div>
+			@endforeach
+		</div>
 			<div id="groupModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
 				<div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
@@ -27,16 +33,23 @@
 					</div>
 				</div>
 			</div>
+			<div>
+			{{ Form::open(array('url' => '/Groups/create','method' => 'GET')) }}
+			{{ Form::submit('+') }}
+			</div>
 
+<!--
 			<div id="groupListSection" class="jumbotron">
 				<div class="container">
 					@foreach($groups as $group)
 						<div class="group">
-							<a onclick="selectGroup('{!!$group!!}')" class="btn btn-default" role="button"> {{$group}} </a>
+							<a onclick="selectGroup('{{$group[0]}}')" class="btn btn-default" role="button"> {{$group[1]}} </a>
 						</div>
 					@endforeach
+					
 				</div>
 			</div>
+			-->
 			
 			<script>
 

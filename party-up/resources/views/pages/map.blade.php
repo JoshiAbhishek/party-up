@@ -7,6 +7,8 @@
         <button id="locationButton">Add Location</button>
         <button id="startButton" onclick="createRouteStart()">Add Start</button>
         <button id="endButton" onclick="createRouteEnd()">Add End</button>
+        {{$group_name}}
+        {{$group_code}}
     </div>
 
     <div id="map"></div>

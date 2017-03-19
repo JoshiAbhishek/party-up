@@ -26,10 +26,10 @@ class GroupsController extends Controller
         $groups = memberships::
                     join('groups','memberships.group_id','=','groups.id') ->
                     where('user_id',$id) ->
-                    select('group_name')->get();
+                    select('group_name','groups.id')->get();
         $names = array();
         foreach($groups as $group) {
-            $names[] = $group->group_name;
+            $names[] = [$group->id,$group->group_name];
         }
 		$this->blade_data['groups'] = $names;
 		return view('pages.groups', $this->blade_data);
@@ -39,8 +39,13 @@ class GroupsController extends Controller
         $id = 1;
         $group = new groups;
         $group->group_name = Input::get('name');
+        $group->group_code = rand(0,999999);
         $group->save();
-        $this->joinGroup($group->id);
+        $member = new memberships;
+        $member->user_id = $id;
+        $member->group_id=$group->id;
+        $member->save();
+ 
         return Redirect::to('/Groups');
     }
 
@@ -50,12 +55,22 @@ class GroupsController extends Controller
         $group.save();
     }
 
-    public function joinGroup($group_id) {
+    public function joinGroup() {
         $user_id = 1;
         $member = new memberships;
         $member->user_id = $user_id;
-        $member->group_id = $group_id;
-        $member->save();
+        $code = Input::get('code');
+        $group = groups::where('group_code',$code)->first();
+        
+        //TODO: Handle error
+
+        if(!$group) {
+        }
+        else {
+            $member->group_id=$group->id;
+            $member->save();
+            return Redirect::to('/Groups');
+        }
     }
 
     public function leaveGroup() {
