@@ -91,13 +91,9 @@ class GroupsController extends APIController
 	}
 
     public function createGroup(Request $request) {
-<<<<<<< HEAD
         parent::checkLoginStatus($request);
 
-        $id = 1;
-=======
         $id = $request->session()->get('user_id')->_id;
->>>>>>> interface
         $group = new groups;
         $group->group_name = Input::get('name');
         $group->group_code = rand(0,999999);
@@ -119,13 +115,9 @@ class GroupsController extends APIController
     }
 
     public function joinGroup(Request $request) {
-<<<<<<< HEAD
         parent::checkLoginStatus($request); 
 
-        $user_id = 1;
-=======
         $id = $request->session()->get('user_id')->_id;
->>>>>>> interface
         $member = new memberships;
         $member->user_id = $id;
         $code = Input::get('code');
