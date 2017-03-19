@@ -199,11 +199,9 @@
             @foreach ($cars as $car)
                 username = "{{$car[0]}}";
                 broadcasting = "{{$car[1]}}";
-                lat = "{{$car[2]}}";
-                long = "{{$car[3]}}";
-
+                lat = Number("{{$car[2]}}");
+                long = Number("{{$car[3]}}");
                 if(broadcasting == '1') {
-					console.log(otherDrivers);
                     otherDrivers.push({lat: lat, lng: long, name: username});
                 }
             @endforeach
@@ -220,7 +218,7 @@
 
             var i;
             for (i = 0; i < otherDrivers.length; i++) {
-                var way = {lat: otherDrivers[i].lat, lng: otherDrivers[i].long};
+                var way = {lat: otherDrivers[i].lat, lng: otherDrivers[i].lng};
 
                 addDriverMarkers(way,  otherDrivers[i].name, '<p>Driver Content</p>', 'other');
             }
@@ -308,10 +306,10 @@
             var i;
 
             if (type == 'driver') {
-                i = '/public/images/marker1.png';
+                i = '/images/marker1.png';
             }
             else {
-                i = '/public/images/marker2.png';
+                i = '/images/marker2.png';
             }
 
             var marker = new google.maps.Marker({
