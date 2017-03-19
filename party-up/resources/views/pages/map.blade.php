@@ -88,6 +88,8 @@
         var directionsService;
         var directionsDisplay;
         var placeSearch;
+        var totalDistance;
+        var totalDuration;
 
         function initAutocomplete() {
             directionsService = new google.maps.DirectionsService;
@@ -353,6 +355,9 @@
                 title: title
             });
             marker.addListener('click', function () {
+                drawDistance(marker.position);
+                console.log((Math.round( totalDistance * 0.00062137 )));
+                console.log(Math.round( totalDuration / 60 ));  
                 infowindow.open(map, marker);
             });
         }
@@ -364,15 +369,13 @@
                     travelMode: 'DRIVING'
                     }, function(response, status) {
                     if (status === 'OK') {
-                        var totalDistance = 0;
-                        var totalDuration = 0;
+                        totalDistance = 0;
+                        totalDuration = 0;
                         var legs = response.routes[0].legs;
                         for(var i=0; i<legs.length; ++i) {
                             totalDistance += legs[i].distance.value;
                             totalDuration += legs[i].duration.value;
-                        }
-                        console.log((Math.round( totalDistance * 0.00062137 )));
-                        console.log(Math.round( totalDuration / 60 ));                        
+                        }                      
 
                         directionsDisplay.setDirections(response);                        
                     } else {
