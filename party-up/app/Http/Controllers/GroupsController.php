@@ -11,13 +11,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
 
-$access_token = "117889f4-5f79-472d-968a-7536e40db815";
-
 class GroupsController extends DataController
 {
 
     public function setBroadcast(Request $request) {
-        $request->session()->put('access_token', '$access_token');
         $id = $request->session()->get('user_id')->_id;
         $user = User::find($id);
         if($user->broadcasting==1) {
@@ -37,7 +34,6 @@ class GroupsController extends DataController
 
     // Get id of currently logged in user
     public function getUserGroups(Request $request) {
-        $request->session()->put('access_token', '$access_token');
         $user_id = $this->fetchCurrentUser()->_id;
 	
 	$this->updateData();	
@@ -103,7 +99,6 @@ class GroupsController extends DataController
 	}
 
     public function createGroup(Request $request) {
-        $request->session()->put('access_token', '$access_token');
         $id = $request->session()->get('user_id')->_id;
         $group = new groups;
         $group->group_name = Input::get('name');
