@@ -39,8 +39,8 @@ class GroupsController extends Controller
 		return view('pages.groups', $this->blade_data);
     }
 
-	public function getGroupUsers($group_id) {
-        parent::checkLoginStatus();
+	public function getGroupUsers(Request $request, $group_id) {
+        parent::checkLoginStatus($request);
 
 		$this->blade_data['group_id'] = $group_id;
         $group = groups::find($group_id);
@@ -83,8 +83,8 @@ class GroupsController extends Controller
 		return view('pages.map', $this->blade_data);
 	}
 
-    public function createGroup() {
-        parent::checkLoginStatus();
+    public function createGroup(Request $request) {
+        parent::checkLoginStatus($request);
 
         $id = 1;
         $group = new groups;
@@ -99,16 +99,16 @@ class GroupsController extends Controller
         return Redirect::to('/Groups');
     }
 
-    public function updateDestination($id,$loc_id) {
-        parent::checkLoginStatus();
+    public function updateDestination(Request $request, $id, $loc_id) {
+        parent::checkLoginStatus($request);
 
         $group = groups::find($id);
         $group->destination_id = $loc_id;
         $group.save();
     }
 
-    public function joinGroup() {
-        parent::checkLoginStatus(); 
+    public function joinGroup(Request $request) {
+        parent::checkLoginStatus($request); 
 
         $user_id = 1;
         $member = new memberships;
@@ -127,8 +127,8 @@ class GroupsController extends Controller
         }
     }
 
-    public function leaveGroup() {
-        parent::checkLoginStatus();
+    public function leaveGroup(Request $request) {
+        parent::checkLoginStatus($request);
 
     }
 }

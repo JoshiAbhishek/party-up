@@ -15,9 +15,9 @@ class APIController extends Controller
 	}
 
 	/* Max 10 users */
-	public function fetchUsers()
+	public function fetchUsers(Request $request)
 	{
-		parent::checkLoginStatus();
+		parent::checkLoginStatus($request);
 
 		$uri_users = 'https://staging-api.moj.io/v1/users?MojioAPIToken=';
 		$mojio_api_token = env('APP_MOJIO_TOKEN','');
@@ -34,9 +34,9 @@ class APIController extends Controller
 	}
 
 	/* Max 10 vehicles */
-	public function fetchVehicles()
+	public function fetchVehicles(Request $request)
 	{
-		parent::checkLoginStatus();
+		parent::checkLoginStatus($request);
 		
 		$uri_users = 'https://staging-api.moj.io/v1/vehicles?MojioAPIToken=';
 
