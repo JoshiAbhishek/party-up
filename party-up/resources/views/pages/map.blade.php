@@ -191,8 +191,8 @@
             @foreach ($cars as $car)
                 username = "{{$car[0]}}";
                 broadcasting = "{{$car[1]}}";
-                lat = (float) "{{$car[2]}}";
-                long = (float) "{{$car[3]}}";
+                lat = "{{$car[2]}}";
+                long = "{{$car[3]}}";
 
                 if(broadcasting == '1') {
 					console.log(otherDrivers);
@@ -232,7 +232,6 @@
         function addCurrentDriverMarker() {
             addDriverMarkers(currentDriver, 'Driver Name', '<p>Driver Content</p>', 'driver');
 
-            map.setCenter(new google.maps.LagLng(currentDriver));
         }
 
         function CalcDriverTrip() {
