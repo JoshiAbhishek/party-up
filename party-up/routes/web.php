@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/signin', function () {
+    return view('signin');
+});
+
+Route::post('/signin/{access_token}', 'MojioLoginController@test($access_token)');
